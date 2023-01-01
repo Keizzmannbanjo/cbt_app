@@ -1,0 +1,89 @@
+{% extends 'student/base.html' %} 
+
+{% block content %}
+<h2>  {{ subject }} Test </h2>
+<div class="container">
+    {% if questions.all %}
+    <form action="{% url 'cbt:submit_test' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="subject_title" id="subject_title" value="{{ subject }}" hidden>
+        <input type="text" name="questions_count" id="questions_count" value="{{ questions_count }}" hidden>
+
+        {% for question in questions.all %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <p class="card-text lead">{{ question.text}}</p>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                id="{{ question.pk}} + A"
+                                name="{{ question.text }}"
+                                value="{{ question.option_a }}"
+                            />
+                            <label
+                                for="{{ question.pk }} + A"
+                                class="form-check-label"
+                                >{{ question.option_a }}</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                id="{{ question.pk}} + B"
+                                name="{{ question.text }}"
+                                value="{{ question.option_b }}"
+                            />
+                            <label
+                                for="{{ question.pk }} + B"
+                                class="form-check-label"
+                                >{{ question.option_b }}</label
+                            >
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                id="{{ question.pk}} + C"
+                                name="{{ question.text }}"
+                                value="{{ question.option_c }}"
+                            />
+                            <label
+                                for="{{ question.pk }} + C"
+                                class="form-check-label"
+                                >{{ question.option_c }}</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                id="{{ question.pk}} + D"
+                                name="{{ question.text }}"
+                                value="{{ question.option_d }}"
+                            />
+                            <label
+                                for="{{ question.pk }} + D"
+                                class="form-check-label"
+                                >{{ question.option_d }}</label
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn d-block m-auto btn-success ">Submit</button>
+    </form>
+    {% else %}
+    <p>Sorry, No Test Available</p>
+
+    {% endif %}
+</div>
+{% endblock content %}

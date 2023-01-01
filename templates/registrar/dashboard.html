@@ -1,0 +1,12 @@
+{% extends 'registrar/base.html' %} 
+
+{% block content %} 
+<header class="text-center">
+    <h1>Welcome {{ user.username | capfirst}}</h1>
+    <div>
+        <a href="{% url 'accounts:create_student' %}" class="btn create-student-btn">Create Student </a>
+
+        <a href="{% url 'accounts:create_lecturer' %}" class="btn create-lecturer-btn">Create Lecturer </a>
+    </div>
+</header>
+{% endblock %}

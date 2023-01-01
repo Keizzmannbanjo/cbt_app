@@ -1,0 +1,74 @@
+{% extends 'student/base.html' %} {% block content %}
+<section>
+    <div class="subjects">
+        <h3>Your Subjects</h3>
+        {% if student.subjects.all %}
+        <table class="table">
+            <thead>
+                <th>Subject</th>
+                <th>Take Test</th>
+                <th>View Test Results</th>
+                <th>View Exam Score</th>
+                <th>View Grades</th>
+            </thead>
+            {% for subject in student.subjects.all %}
+                <tr>
+                    <td>{{subject}}</td>
+                    <td>
+                        {% if student.test_results.all %} 
+                            {% for test_result in student.test_results.all %}
+                                {% if test_result.subject == subject %}
+                                <i class="far fa-check-circle"></i>
+                                {% endif %}
+                            {% endfor %} 
+                        {% else %} 
+                        <a class="btn btn-success"
+                        href="{% url 'cbt:take_test' subject %}"
+                    >
+                        Take Test
+                        </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if student.test_results.all %} 
+                            {% for test_result in student.test_results.all %} 
+                                {% if test_result.subject == subject %} 
+                                    <a class="btn btn-warning" href="#">View Test Result</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %} 
+                            Not Available
+                        {% endif %}
+                    </td>
+                    <td>
+                    {% if student.exam_results.all %} 
+                        {% for exam_result in student.exam_results.all %}
+                            {% if exam_result.subject == subject %} 
+                                <a href="#" class="btn btn-info">View Result</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        Not Available
+                    {% endif %}
+                    </td>
+                    <td>
+                        {% if student.final_grades.all %} 
+                        {% for final_grade in student.final_grades.all %}
+                            {% if final_grade.subject == subject %}
+                            <a href="#" class="btn btn-secondary">View Grades</a>
+                            {% endif %}
+                        {% endfor %} 
+                         {% else %} 
+                        Not Available
+                    {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>Sorry, you do not have registered courses</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock content %}

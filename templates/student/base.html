@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=`, initial-scale=1.0" />
+        <title>Home</title>
+        <link
+            rel="stylesheet"
+            href="{% static '/bootstrap/css/bootstrap.css' %}"
+        />
+        <link rel="stylesheet" href="{% static '/css/all.css' %}" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static '/css/base.css' %}"
+        />
+    </head>
+    <body>
+        <div class="row">
+            <aside class="col-md-2 position-fixed aside">
+                <ul class="side-nav__nav">
+                    <li>
+                        <a
+                            class="side-nav__link"
+                            href="{% url 'student:view_subjects' %}"
+                            >Subjects</a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-nav__link" href="#">Grades</a>
+                    </li>
+                </ul>
+            </aside>
+            <main class="offset-md-2 col-md-10">
+                <nav>
+                    <div>
+                        {% if student.user.is_authenticated %}
+                        <h2>Welcome {{ student.user.username }}</h2>
+                        {% endif %}
+                    </div>
+                </nav>
+                <div class="content">
+                    {% block content %} {% endblock content %}
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

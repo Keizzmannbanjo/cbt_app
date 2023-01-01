@@ -1,0 +1,74 @@
+body {
+    width: 100%;
+    height: 100vh;
+}
+
+h2 {
+    font-style: italic;
+    font-weight: bold;
+    color: rgb(15, 189, 15);
+    margin-bottom: 2rem;
+}
+
+button[type='submit']{
+    font-weight: bold;
+    color:#fff;
+    padding:.2rem .5rem;
+}
+
+button[type='submit']:hover{
+    opacity: .8;
+}
+
+.side-image {
+    background-image: url("/static/images/signin.jpg");
+    background-position: center center;
+    background-size: cover;
+}
+
+.form-area {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sigin-form {
+    display: flex;
+    width:100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    margin-left: 10px;
+    margin-bottom: 1rem;
+    width: 300px;
+    border: 0;
+    background-color: transparent;
+    border-bottom: 1px solid black;
+    outline: none;
+    color:#000;
+}
+
+input::placeholder{
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+.submit-btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+.student-btn{
+    background-color: rgb(15, 189, 15);
+}
+
+.lecturer-btn{
+    margin-left:10px;
+    background-color: rgb(61, 19, 158);
+}
+
+

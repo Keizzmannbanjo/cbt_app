@@ -1,0 +1,61 @@
+{% extends 'registrar/base.html' %} {% block content %} 
+{% if form.matric_no %}
+<form class="create-form" method="post" action="">
+    <h2 class="text-center">Create Student</h2>
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.surname.label_tag }} {{ form.surname }}
+        </div>
+        <div class="col-md-6">{{ form.email.label_tag }} {{ form.email }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.other_name.label_tag }} {{ form.other_name }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.first_name.label_tag }} {{ form.first_name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.matric_no.label_tag }} {{ form.matric_no }}
+        </div>
+        <div class="col-md-6">
+           {{ form.subjects }}
+
+            <!-- {% for pk, choice in form.subjects.widget.choices %} 
+
+            {% endfor %} -->
+        </div>
+    </div>
+    <button type="submit" class="create-btn">Create</button>
+</form>
+
+{% else %}
+<form class="create-form" method="post" action="">
+    <h2 class="text-center">Create Lecturer</h2>
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.surname.label_tag }} {{ form.surname }}
+        </div>
+        <div class="col-md-6">{{ form.email.label_tag }} {{ form.email }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.first_name.label_tag }} {{ form.first_name }}
+        </div>
+        <div class="col-md-6">
+            {{ form.subject.label_tag }} {{ form.subject }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.other_name.label_tag }} {{ form.other_name }}
+        </div>
+    </div>
+    <button type="submit" class="create-btn">Create</button>
+</form>
+{% endif %} {% endblock %}

@@ -1,0 +1,87 @@
+/* ? BASE STYLES HERE */
+
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    font-size: 16px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+a, a:hover{
+    text-decoration:none
+}
+
+ul{
+    list-style: none;
+}
+
+h2, h3{
+    font-style: italic;
+    font-weight: bold;
+    color: rgb(15, 189, 15);
+    margin-bottom: 2rem;
+}
+
+/* ? SIDEBAR STYLES HERE */
+
+aside.aside{
+    height:100vh;
+    background-color:#000;
+}
+
+.side-nav__nav{
+    margin-top: 3rem;
+    display: block;
+    width:100%;
+}
+
+.side-nav__nav li{
+    display: block;
+    padding: 1.3rem .7rem;
+}
+
+.side-nav__nav .side-nav__link{
+    font-style: italic;
+    color: rgb(250, 248, 248);
+    font-weight: 700;
+}
+
+.side-nav__nav .side-nav__link:hover{
+    color:rgb(15, 189, 15);
+}
+
+/* ?   NAVBAR STYLES HERE */
+
+nav{
+    padding:2rem 0;
+}
+
+
+/* ? DASHBOARD STYLES HERE */
+
+
+/* ? STUDENT DASHBOARD STYLES HERE */
+
+.subjects{
+    text-align: center;
+}
+
+
+/* ? LECTURER DASHBOARD STYLES HERE */
+
+
+
+/* ? TEST SECTION STYLES HER */
+
+p{
+    color:rgb(15, 189, 15);
+}
+
+div.form-check{
+    margin: 10px;
+}

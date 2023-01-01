@@ -1,0 +1,81 @@
+{% extends 'lecturer/base.html' %} 
+
+{% block content %}
+<h3>Your Students</h3>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Matric No</th>
+        <th>Test</th>
+        <th>CA Score</th>
+        <th>Exam</th>
+        <th>Grade</th>
+    </tr>
+    {% for student in students %} 
+    <tr>
+        <td>{{student}}</td>
+        <td>{{student.matric_no}}</td>
+        <td>
+            {% if test_results %}
+            {% for test_result in test_results %} 
+                {% if test_result.student == student %}
+                    {{ test_result.score }}
+                {% else %} 
+                    No Test Score
+                {% endif %}
+            {% endfor %}
+            {% else %}
+            No Test Score
+            {% endif %}
+
+        </td>
+        <td>
+            {% if cascores %}
+            {% for cascore in cascores %} 
+                {% if cascore.student == student %}
+                    {{ cascore.score }}
+                {% else %} 
+                    No CA Score
+                {% endif %}
+            {% endfor %}
+            {% else %}
+            No CA Score
+            {% endif %}
+
+        </td>
+        <td>
+            {% if exam_scores %}
+            {% for exam_score in exam_scores %} 
+                {% if exam_score.student == student %}
+                    {{ exam_score.score }}
+                {% else %} 
+                    No Exam Score
+                {% endif %}
+            {% endfor %}
+            {% else %} 
+                No Exam Score
+            {% endif %}
+
+        </td>
+        <td>
+            {% if final_grades %}
+            {% for final_grade in final_grades %} 
+                {% if final_grade.student == student %}
+                    {{ final_grade.grade }}
+                {% else %} 
+                    No Grade Yet
+                {% endif %}
+            {% endfor %}
+            {% else %}
+                No Grade Yet 
+            {% endif %}
+        </td>
+
+    </tr>
+        
+    {% endfor %}
+    
+</table>
+
+
+{% endblock content %}

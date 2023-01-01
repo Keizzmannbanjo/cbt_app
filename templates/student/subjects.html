@@ -1,0 +1,22 @@
+{% extends 'student/base.html' %} {% block content %}
+<section class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects.all %}
+            <tr>
+                <td>{{ subject.title }}</td>
+                <td><a href="{% url 'cbt:take_test' subject %}" class="btn btn-success">Take Test</a></td>
+                <td><a href="#" class="btn btn-warning"> View Grade </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock content %}

@@ -1,0 +1,4 @@
+Buttons:
+    colors:
+        green: rgb(15, 189, 15)
+        blue: rgb(61, 19, 158)

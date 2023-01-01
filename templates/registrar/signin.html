@@ -1,0 +1,12 @@
+{% extends 'registrar/base.html' %} {% block content %}
+
+<form method="post" action="" class="signin-form">
+<h2 class="text-center">Sign In</h2>
+    {% csrf_token %} {% for field in form %}
+    <div class="form-group signin-form-group">
+        {{ field.label_tag}} {{ field }} {{ field.errors }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="signin-btn">Sign In</button>
+</form>
+{% endblock %}
