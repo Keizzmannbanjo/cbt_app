@@ -20,7 +20,7 @@ class StudentCreationForm(forms.ModelForm):
     @transaction.atomic
     def save(self):
         student = super().save(commit=False)
-        user = User.objects.create_user(username = self.cleaned_data.get('surname'),email = self.cleaned_data.get('email'),password = self.cleaned_data.get('matric_no'), type = 'student')
+        user = User.objects.create_user(username = self.cleaned_data.get('matric_no'),email = self.cleaned_data.get('email'),password = self.cleaned_data.get('surname'), type = 'student')
         subjects = self.cleaned_data.get('subjects')
         user.save()
         student.user = user 

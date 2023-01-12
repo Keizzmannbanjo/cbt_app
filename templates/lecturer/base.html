@@ -1,56 +1,52 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=`, initial-scale=1.0" />
-        <title>Lecturer || Dashboard</title>
-        <link
-            rel="stylesheet"
-            href="{% static '/bootstrap/css/bootstrap.css' %}"
-        />
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="{% static '/css/base.css' %}"
-        />
-        <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=`, initial-scale=1.0" />
+    <title>Lecturer || Dashboard</title>
+    <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/css/base.css' %}"
+    />
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
+    <link rel="icon" href="{% static '/images/logo.png' %}" />
+  </head>
 
-    <body>
-        <div class="row">
-            <aside class="col-md-2 position-fixed aside">
-                <ul class="side-nav__nav">
-                    <li>
-                        <a class="side-nav__link" href="#"> View Students</a>
-                    </li>
-                    <li>
-                        <a class="side-nav__link" href="#">View Test Results</a>
-                    </li>
+  <body>
+    <div class="row">
+      <aside class="col-md-2 position-fixed aside">
+        <ul class="side-nav__nav">
+          <li>
+            <a class="side-nav__link" href="#"> View Students</a>
+          </li>
+          <li>
+            <a class="side-nav__link" href="#">View Test Results</a>
+          </li>
 
-                    <li>
-                        <a class="side-nav__link" href="#">View Grades</a>
-                    </li>
-                </ul>
-            </aside>
-            <main class="offset-md-2 col-md-10">
-                <nav>
-                    <div>
-                        {% if lecturer.user.is_authenticated %}
-                        <h2>Welcome {{ lecturer.user.username }}</h2>
-                        <!-- <form method="post" action="{% url 'lecturer:find_student' %}">
+          <li>
+            <a class="side-nav__link" href="#">View Grades</a>
+          </li>
+        </ul>
+      </aside>
+      <main class="offset-md-2 col-md-10">
+        <nav>
+          <div>
+            {% if lecturer.user.is_authenticated %}
+            <h2>Welcome {{ lecturer.user.username }}</h2>
+            <!-- <form method="post" action="{% url 'lecturer:find_student' %}">
                                 {% csrf_token %} 
                                 <input type="text" class="form-control" name="matric_no" placeholder="Enter Student Matric No" >
                                 <button type="submit" class="btn btn-info">Find Student</button>
                             </form> -->
-                        {% endif %}
-                    </div>
-                </nav>
-                <div class="content">
-                    {% block content %} {% endblock content %}
-                </div>
-            </main>
-        </div>
-    </body>
+            {% endif %}
+          </div>
+        </nav>
+        <div class="content">{% block content %} {% endblock content %}</div>
+      </main>
+    </div>
+  </body>
 </html>

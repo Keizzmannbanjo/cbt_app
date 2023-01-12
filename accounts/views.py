@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 import logging
 
 
-
 from .forms import SignInForm
 from student.forms import StudentCreationForm
 from lecturer.forms import LecturerCreationForm
@@ -22,17 +21,18 @@ def generalSignIn(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(request, username = username, password = password)
+            user = authenticate(request, username=username, password=password)
             if user:
-                logger.info(user.type)
                 if user.type == 'student':
                     login(request, user)
                     return redirect(reverse('student:dashboard'))
                 elif user.type == 'lecturer':
                     login(request, user)
                     return redirect(reverse('lecturer:dashboard'))
-            
-    return render(request, 'accounts/signin.html', {'form':form})
+            else:
+                return render(request, 'accounts/signin.html', {'form':form, 'invalidUser':True})
+
+    return render(request, 'accounts/signin.html', {'form': form, 'invalidUser':False})
 
 
 def registrarSignIn(request):
@@ -40,11 +40,12 @@ def registrarSignIn(request):
     if request.method == 'POST':
         form = SignInForm(request.POST)
         if form.is_valid():
-            user = authenticate(username = form.cleaned_data.get('username'), password = form.cleaned_data.get('password'))
+            user = authenticate(username=form.cleaned_data.get(
+                'username'), password=form.cleaned_data.get('password'))
             if user:
                 login(request, user)
                 return redirect(reverse('accounts:registrar_dashboard'))
-    return render(request, 'registrar/signin.html', {'form':form})
+    return render(request, 'registrar/signin.html', {'form': form})
 
 
 @login_required
@@ -55,7 +56,7 @@ def createStudent(request):
         if form.is_valid():
             form.save()
             return redirect(reverse('accounts:registrar_dashboard'))
-    return render(request, 'registrar/create.html', {'form':form})
+    return render(request, 'registrar/create.html', {'form': form})
 
 
 @login_required
@@ -66,9 +67,9 @@ def createLecturer(request):
         if form.is_valid():
             form.save()
             return redirect(reverse('accounts:registrar_dashboard'))
-    return render(request, 'registrar/create.html', {'form':form})
+    return render(request, 'registrar/create.html', {'form': form})
+
 
 @login_required
 def registrarDashboard(request):
     return render(request, 'registrar/dashboard.html')
-

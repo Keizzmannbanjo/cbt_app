@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sign In</title>
-        <link
-            href="{% static '/bootstrap/css/bootstrap.css' %}"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="{% static '/css/accounts.css' %}" />
-    </head>
-    <body class="row">
-        <div class="side-image col-md-6"></div>
-        <div class="form-area col-md-6">
-            <form method="post" action="" class="sigin-form">
-                <h2 class="text-center">Sign In</h2>
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.username }}
-                    <div class="text-danger">{{ form.username.errors }}</div>
-                </div>
-                <div class="form-group">
-                    {{ form.password }}
-                    <div class="text-danger">{{ form.password.errors }}</div>
-                </div>
-                <div class="submit-btns">
-                    <button type="submit" class="btn student-btn">
-                        Sign in as Student
-                    </button>
-                    <button type="submit" class="btn lecturer-btn">
-                        Sign in as Lecturer
-                    </button>
-                </div>
-            </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link href="{% static '/bootstrap/css/bootstrap.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static '/css/accounts.css' %}" />
+    <link rel="icon" href="{% static '/images/logo.png' %}" />
+  </head>
+  <body class="row">
+    <div class="side-image col-md-6"></div>
+    <div class="form-area col-md-6">
+       
+      <form method="post" action="" class="sigin-form">
+        <h2 class="text-center">Sign In</h2>
+        {% csrf_token %}
+        {% if invalidUser %}
+        <div class="alert alert-danger">
+          Invalid User, Try Again
         </div>
-    </body>
+        {% endif %}
+        <div class="form-group">
+          {{ form.username }}
+          <div class="text-danger">{{ form.username.errors }}</div>
+        </div>
+        <div class="form-group">
+          {{ form.password }}
+          <div class="text-danger">{{ form.password.errors }}</div>
+        </div>
+        <div class="submit-btns">
+          <button type="submit" class="btn student-btn">
+            Sign in as Student
+          </button>
+          <button type="submit" class="btn lecturer-btn">
+            Sign in as Lecturer
+          </button>
+          
+        </div>
+      </form>
+    </div>
+  </body>
 </html>
