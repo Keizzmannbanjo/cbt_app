@@ -1,4 +1,3 @@
-from operator import attrgetter
 from django.db import transaction
 
 from django import forms 
@@ -6,8 +5,6 @@ from accounts.models import User
 from .models import Lecturer,Subject
 
 class LecturerCreationForm(forms.ModelForm):
-
-
     class Meta:
         model = Lecturer
         fields = ('surname','first_name', 'other_name','subject', 'email')

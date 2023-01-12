@@ -1,5 +1,4 @@
-from re import S
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import CAScore, Question, TestResult, FinalGrade
 from student.models import Student
 from lecturer.models import Subject
@@ -11,7 +10,7 @@ import logging
 
 @login_required
 def takeTest(request, subject_name):
-    subject = subject_name
+    """ subject = subject_name
     try:
         test_result = Subject.objects.get(title = subject_name).test_results.get(student__user = request.user)
         if test_result:
@@ -20,11 +19,12 @@ def takeTest(request, subject_name):
         pass
     questions = Question.objects.filter(subject__title = subject_name).order_by('id')
     questions_count = questions.count()
-    return render(request, 'cbt/test.html',context = {'questions': questions, 'subject' : subject, 'questions_count': questions_count})
+    return render(request, 'cbt/test.html',context = {'questions': questions, 'subject' : subject, 'questions_count': questions_count}) """
+    return HttpResponse("Test to take")
 
 @login_required
 def handleTestSubmit(request):
-    score = 0
+    """ score = 0
     if request.method == 'POST':
         data = request.POST
         questions = Question.objects.filter(subject__title = data['subject_title']).order_by('id')
@@ -40,5 +40,6 @@ def handleTestSubmit(request):
         )
         test_result.save()
         return redirect('student:dashboard')
-    return redirect('student:dashboard')
+    return redirect('student:dashboard') """
+    return HttpResponse("Test Submitted")
 

@@ -3,6 +3,6 @@ from .models import *
 
 admin.site.register(Question)
 admin.site.register(TestResult)
-admin.site.register(CAScore)
-admin.site.register(ExamResult)
-admin.site.register(FinalGrade)
+admin.site.register(Quiz)
+admin.site.register(Option)
+admin.site.register(Answer)
