@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import logging
 
 from .models import Lecturer, Subject
-# from cbt.models import TestResult, CAScore, ExamResult, FinalGrade
+from cbt.models import TestResult
 
 
 logger = logging.getLogger('django')
@@ -24,19 +24,8 @@ def dashboard(request):
         final_grades = FinalGrade.objects.filter(subject=subject)
         return render(request, 'lecturer/dashboard.html', {'lecturer': lecturer, 'students': students, 'subject': subject, 'test_results': test_results, 'cascores': cascores, 'exam_results': exam_results, 'final_grades': final_grades}) """
     lecturer = Lecturer.objects.get(user=request.user)
-    students = Subject.objects.get(title=lecturer.subject.title).students.all()
-    print(students)
+    subject_title = lecturer.subject.title
+    students = Subject.objects.get(title=subject_title).students.all()
+    test_results = TestResult.objects.filter(subject__title=subject_title)
 
-    return HttpResponse("Dashboard")
-
-
-@login_required
-def findStudent(request):
-    """ if request.method == 'POST':
-        matric_no = request.POST['matric_no']
-        student = Student.objects.get(matric_no = matric_no)
-        lecturer = Lecturer.objects.get(user = request.user)
-        if student.subjects.filter(title = lecturer.subject).exists():
-            return render(request, 'lecturer/view_student.html', {'student':student}) """
-    # return redirect('lecturer:lecturer_dashboard')
-    return HttpResponse("This finds the student")
+    return render(request, 'lecturer/dashboard.html', {'students': students, 'lecturer': lecturer, 'test_results': test_results})
