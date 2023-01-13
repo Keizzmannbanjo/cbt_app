@@ -13,7 +13,6 @@ class LecturerCreationForm(forms.ModelForm):
             'first_name':forms.TextInput(attrs={'autocomplete':'off'}),
             'other_name':forms.TextInput(attrs={'autocomplete':'off'}),
             'email':forms.TextInput(attrs={'autocomplete':'off'}),
-            'subject': forms.CheckboxInput()
         }
 
   
@@ -27,3 +26,8 @@ class LecturerCreationForm(forms.ModelForm):
         lecturer.subject = Subject.objects.get(title = self.cleaned_data.get('subject'))
         lecturer.save()
         
+
+class SubjectCreationForm(forms.ModelForm):
+    class Meta:
+        model = Subject 
+        fields = "__all__"

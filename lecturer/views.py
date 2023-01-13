@@ -15,8 +15,6 @@ logger = logging.getLogger('django')
 
 @login_required
 def dashboard(request):
-
-
     """     lecturer = Lecturer.objects.get(user=request.user)
         students = Subject.objects.get(title=lecturer.subject.title).students.all()
         subject = lecturer.subject
@@ -25,6 +23,10 @@ def dashboard(request):
         exam_results = ExamResult.objects.filter(subject=subject)
         final_grades = FinalGrade.objects.filter(subject=subject)
         return render(request, 'lecturer/dashboard.html', {'lecturer': lecturer, 'students': students, 'subject': subject, 'test_results': test_results, 'cascores': cascores, 'exam_results': exam_results, 'final_grades': final_grades}) """
+    lecturer = Lecturer.objects.get(user=request.user)
+    students = Subject.objects.get(title=lecturer.subject.title).students.all()
+    print(students)
+
     return HttpResponse("Dashboard")
 
 

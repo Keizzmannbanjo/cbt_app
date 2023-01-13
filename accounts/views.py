@@ -9,7 +9,7 @@ import logging
 
 from .forms import SignInForm
 from student.forms import StudentCreationForm
-from lecturer.forms import LecturerCreationForm
+from lecturer.forms import LecturerCreationForm, SubjectCreationForm
 
 logger = logging.getLogger('django')
 
@@ -30,9 +30,9 @@ def generalSignIn(request):
                     login(request, user)
                     return redirect(reverse('lecturer:dashboard'))
             else:
-                return render(request, 'accounts/signin.html', {'form':form, 'invalidUser':True})
+                return render(request, 'accounts/signin.html', {'form': form, 'invalidUser': True})
 
-    return render(request, 'accounts/signin.html', {'form': form, 'invalidUser':False})
+    return render(request, 'accounts/signin.html', {'form': form, 'invalidUser': False})
 
 
 def registrarSignIn(request):
@@ -68,6 +68,18 @@ def createLecturer(request):
             form.save()
             return redirect(reverse('accounts:registrar_dashboard'))
     return render(request, 'registrar/create.html', {'form': form})
+
+
+@login_required
+def createSubject(request):
+    form = SubjectCreationForm()
+    if request.method == 'POST':
+        form = SubjectCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('accounts:registrar_dashboard'))
+
+    return render(request, 'registrar/create_subject.html', {'form': form})
 
 
 @login_required

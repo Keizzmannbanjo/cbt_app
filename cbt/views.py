@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import CAScore, Question, TestResult, FinalGrade
 from student.models import Student
 from lecturer.models import Subject
 from django.contrib.auth.decorators import login_required
