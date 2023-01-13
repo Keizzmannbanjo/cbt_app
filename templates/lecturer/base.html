@@ -21,12 +21,16 @@
       <aside class="col-md-2 position-fixed aside">
         <ul class="side-nav__nav">
           <li>
+            <a class="side-nav__link" href="{% url 'lecturer:create_quiz' %}"
+              >Create Quiz</a
+            >
+          </li>
+          <li>
             <a class="side-nav__link" href="#"> View Students</a>
           </li>
           <li>
             <a class="side-nav__link" href="#">View Exam Results</a>
           </li>
-
         </ul>
       </aside>
       <main class="offset-md-2 col-md-10">
@@ -34,7 +38,7 @@
           <div>
             {% if lecturer.user.is_authenticated %}
             <h2>Welcome {{ lecturer.user.username }}</h2>
-    
+
             {% endif %}
           </div>
         </nav>

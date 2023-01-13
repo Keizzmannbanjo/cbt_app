@@ -8,6 +8,7 @@ import logging
 
 from .models import Lecturer, Subject
 from cbt.models import TestResult
+from cbt.forms import QuizCreationForm
 
 
 logger = logging.getLogger('django')
@@ -29,3 +30,14 @@ def dashboard(request):
     test_results = TestResult.objects.filter(subject__title=subject_title)
 
     return render(request, 'lecturer/dashboard.html', {'students': students, 'lecturer': lecturer, 'test_results': test_results})
+
+
+@login_required
+def create_quiz(request):
+    form = QuizCreationForm()
+    if request.method == 'POST':
+        form = QuizCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return reverse('lecturer:dashboard')
+    return render(request, 'lecturer/create_quizz.html', {'form': form})

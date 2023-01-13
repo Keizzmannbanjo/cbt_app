@@ -1,0 +1,7 @@
+{% extends 'lecturer/base.html' %} {% block content %}
+<h3>Create Exam Quiz</h3>
+<form method="post">
+  {% csrf_token %} {{form}}
+  <button class="btn btn-success">Create Quiz</button>
+</form>
+{% endblock content%}
