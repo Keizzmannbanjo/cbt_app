@@ -1,0 +1,25 @@
+{% extends 'lecturer/base.html' %} {% block content %}
+<h3>Exam Details</h3>
+<a href="{% url 'lecturer:add_question'%}" class="btn btn-success">
+  Add Question</a
+>
+<div>
+  {% if quiz != None %}
+  <h3>{{quiz.title}}</h3>
+  <p>{{quiz.description}}</p>
+
+  <div>
+    {% if questions != None %} 
+    {% for question in questions %}
+    <p>{{ question.text}}</p>
+    <a href="#" class="btn btn-success">Edit Question</a>
+    {% endfor %} {% endif %}
+  </div>
+  {% else%}
+  <p>Sorry, no quiz available</p>
+  <a href="{% url 'lecturer:create_quiz' %}" class="btn btn-success"
+    >Create Quiz</a
+  >
+  {% endif %}
+</div>
+{% endblock content %}

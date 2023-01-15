@@ -22,7 +22,12 @@
         <ul class="side-nav__nav">
           <li>
             <a class="side-nav__link" href="{% url 'lecturer:create_quiz' %}"
-              >Create Quiz</a
+              >Create Quz</a
+            >
+          </li>
+          <li>
+            <a class="side-nav__link" href="{% url 'lecturer:view_exam' %}"
+              >View Exam</a
             >
           </li>
           <li>
@@ -45,5 +50,6 @@
         <div class="content">{% block content %} {% endblock content %}</div>
       </main>
     </div>
+    <script src="{% static 'js/set_questions.js' %}"></script>
   </body>
 </html>

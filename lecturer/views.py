@@ -1,13 +1,9 @@
-import imp
-from importlib import import_module
-from typing import Final
-from django.shortcuts import redirect, render, reverse, HttpResponse
-from student.models import Student
+from django.shortcuts import render, reverse, redirect
 from django.contrib.auth.decorators import login_required
 import logging
 
 from .models import Lecturer, Subject
-from cbt.models import TestResult
+from cbt.models import TestResult, Quiz, Question, Option
 from cbt.forms import QuizCreationForm
 
 
@@ -38,6 +34,52 @@ def create_quiz(request):
     if request.method == 'POST':
         form = QuizCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return reverse('lecturer:dashboard')
+            quiz = form.save(commit=False)
+            lecturer = Lecturer.objects.get(user=request.user)
+            quiz.subject = lecturer.subject
+            quiz.save()
+            return redirect(reverse('lecturer:dashboard'))
     return render(request, 'lecturer/create_quizz.html', {'form': form})
+
+
+@login_required
+def add_question(request):
+    if request.method == "POST":
+        data = request.POST
+        lecturer = Lecturer.objects.get(user=request.user)
+        subject = Subject.objects.get(title=lecturer.subject.title)
+        quiz = Quiz.objects.get(subject=subject)
+        print(data)
+        option_count = 1
+        correct_option_no = 0
+        question = None
+        for x, y in data.items():
+            if x == "csrfmiddlewaretoken":
+                continue
+            elif x == "question_text":
+                question = Question(quiz=quiz, text=y)
+                question.save()
+            elif x == "correct_option_no":
+                correct_option_no = int(y)
+            else:
+                option = Option(question=question, text=y, order=option_count)
+                if correct_option_no == option_count:
+                    option.is_correct = True
+                option.save()
+                option_count += 1
+        return redirect(reverse("lecturer:dashboard"))
+    return render(request, "lecturer/set_questions.html")
+
+
+@login_required
+def view_exam(request):
+    quiz = None
+    questions = None
+    lecturer = Lecturer.objects.get(user=request.user)
+    subject = lecturer.subject
+    try:
+        quiz = Quiz.objects.get(subject=subject)
+        questions = Question.objects.filter(quiz=quiz)
+    except:
+        pass
+    return render(request, 'lecturer/view_exam.html', {'quiz': quiz, 'questions': questions})

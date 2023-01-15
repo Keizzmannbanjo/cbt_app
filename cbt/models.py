@@ -3,6 +3,7 @@ from lecturer.models import Subject
 from student.models import Student
 
 
+
 class Quiz(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()

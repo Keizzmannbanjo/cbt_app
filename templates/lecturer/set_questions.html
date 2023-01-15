@@ -1,0 +1,28 @@
+{% extends 'lecturer/base.html' %} {% block content %}
+<h3>Enter Question</h3>
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="question_text">Enter Question</label>
+    <input
+      type="text"
+      id="question_text"
+      name="question_text"
+      class="form-control"
+    />
+  </div>
+  <label for="correct_option_no">Enter Correct option No:</label>
+  <input
+    type="number"
+    name="correct_option_no"
+    id="correct_option_no"
+    class="form-control"
+  />
+  <button class="btn btn-secondary" id="add-options-btn">Add Options</button>
+
+  <div class="options-container my-3"></div>
+  <button type="submit" class="btn btn-success">Add Question</button>
+  <a href="#" class="btn btn-secondary">Finish Questions</a>
+</form>
+
+{% endblock content %}

@@ -1,14 +1,20 @@
 from django.shortcuts import render, redirect, HttpResponse
+from .models import Quiz,Question
 from student.models import Student
 from lecturer.models import Subject
 from django.contrib.auth.decorators import login_required
-import logging 
+import logging
 
 # logger = logging.getLogger('django')
 
 
 @login_required
 def takeTest(request, subject_name):
+    subject = Subject.objects.get(title=subject_name)
+    student = Student.objects.get(user=request.user)
+    quiz = Quiz.objects.get(subject=subject)
+    questions = quiz.question_set.all()
+    
     """ subject = subject_name
     try:
         test_result = Subject.objects.get(title = subject_name).test_results.get(student__user = request.user)
@@ -20,6 +26,7 @@ def takeTest(request, subject_name):
     questions_count = questions.count()
     return render(request, 'cbt/test.html',context = {'questions': questions, 'subject' : subject, 'questions_count': questions_count}) """
     return HttpResponse("Test to take")
+
 
 @login_required
 def handleTestSubmit(request):
@@ -41,4 +48,3 @@ def handleTestSubmit(request):
         return redirect('student:dashboard')
     return redirect('student:dashboard') """
     return HttpResponse("Test Submitted")
-
