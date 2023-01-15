@@ -1,20 +1,46 @@
-from django.shortcuts import render, redirect, HttpResponse
-from .models import Quiz,Question
+from django.shortcuts import render, redirect, reverse, HttpResponse
+from .models import Quiz, Question, Option, Answer, TestResult
 from student.models import Student
 from lecturer.models import Subject
 from django.contrib.auth.decorators import login_required
 import logging
+
 
 # logger = logging.getLogger('django')
 
 
 @login_required
 def takeTest(request, subject_name):
+    if request.method == 'POST':
+        data = request.POST
+        print(data)
+        student = Student.objects.get(user=request.user)
+        quiz = None
+        correct_answer_count = 0
+        for x, y in data.items():
+            if x == "csrfmiddlewaretoken":
+                continue
+            elif x == "quiz_title":
+                quiz = Quiz.objects.get(id=int(y))
+                print("quiz exist")
+            else:
+                print(int(y))
+                option = Option.objects.get(id=int(y))
+                question = Question.objects.get(id=int(x))
+                answer = Answer(question=question,
+                                option=option, answered_by=student)
+                answer.save()
+                if answer.option.is_correct == True:
+                    correct_answer_count += 1
+        test_result = TestResult(
+            score=correct_answer_count, subject=quiz.subject, student=student)
+        test_result.save()
+        return redirect(reverse("student:dashboard"))
     subject = Subject.objects.get(title=subject_name)
     student = Student.objects.get(user=request.user)
     quiz = Quiz.objects.get(subject=subject)
     questions = quiz.question_set.all()
-    
+
     """ subject = subject_name
     try:
         test_result = Subject.objects.get(title = subject_name).test_results.get(student__user = request.user)
@@ -25,7 +51,7 @@ def takeTest(request, subject_name):
     questions = Question.objects.filter(subject__title = subject_name).order_by('id')
     questions_count = questions.count()
     return render(request, 'cbt/test.html',context = {'questions': questions, 'subject' : subject, 'questions_count': questions_count}) """
-    return HttpResponse("Test to take")
+    return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
 
 
 @login_required
