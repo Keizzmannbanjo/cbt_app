@@ -10,33 +10,33 @@
         <th>View Test Results</th>
       </thead>
       {% for subject in student.subjects.all %}
-        <tr>
-            <td>{{subject}}</td>
-            <td>
-                {% if student.test_results.all %} 
-                    {% for test_result in student.test_results.all %} 
-                        {% if test_result.subject == subject %}
-                            <i class="far fa-check-circle"></i>
-                        {% endif %} 
-                    {% endfor %}
-                {% else %}
-                    <a class="btn btn-success" href="{% url 'cbt:take_test' subject %}">
-                        Take Test
-                    </a>
-                {% endif %}
-            </td>
-            <td>
-                {% if student.test_results.all %} 
-                    {% for test_result in student.test_results.all %}
-                        {% if test_result.subject == subject %}
-                            <a class="btn btn-warning" href="#">View Test Result</a>
-                        {% endif %} 
-                    {% endfor %}
-                {% else %} 
-                    Not Available 
-                {% endif %}
-            </td>
-        </tr>
+      <tr>
+        <td>{{subject}}</td>
+        <td>
+          {% if student.quiz_results.all %} 
+            {% for quiz_result in student.quiz_results.all %} 
+                    {% if quiz_result.subject == subject %}
+                    <i class="far fa-check-circle"></i>
+                    {% endif %}
+                {% endfor %} 
+          {% else %}
+            <a class="btn btn-success" href="{% url 'cbt:take_test' subject %}">
+                Take Test
+            </a>
+          {% endif %}
+        </td>
+        <td>
+          {% if student.quiz_results.all %} 
+            {% for quiz_result in student.quiz_results.all %} 
+                {% if quiz_result.subject == subject %}
+                <a class="btn btn-warning" href="#">View Test Result</a>
+                {% endif %} 
+            {% endfor %} 
+          {% else %} 
+            Not Available 
+          {% endif %}
+        </td>
+      </tr>
       {% endfor %}
     </table>
     {% else %}

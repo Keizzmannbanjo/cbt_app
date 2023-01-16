@@ -22,7 +22,6 @@ def viewSubjects(request):
     subjects = student.subjects
     return render(request, 'student/subjects.html',context =  {'subjects': subjects})
 
-        
 
 
 

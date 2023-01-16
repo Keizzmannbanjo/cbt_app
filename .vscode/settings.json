@@ -7,5 +7,6 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "diffEditor.wordWrap": "on",
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "python.analysis.typeCheckingMode": "off"
 }

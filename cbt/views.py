@@ -11,11 +11,24 @@ import logging
 
 @login_required
 def takeTest(request, subject_name):
+    student = Student.objects.get(user=request.user)
+    subject = Subject.objects.get(title=subject_name)
+    quiz = None
+    if student.quiz_results.all().count() > 0:
+        for quiz_result in student.quiz_results.all():
+            if quiz_result.subject == subject:
+                return redirect(reverse("student:dashboard"))
+            else:
+                quiz = Quiz.objects.get(subject=subject)
+                questions = quiz.question_set.all()
+                return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
+    else:
+        quiz = Quiz.objects.get(subject=subject)
+        questions = quiz.question_set.all()
+        return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
+
     if request.method == 'POST':
         data = request.POST
-        print(data)
-        student = Student.objects.get(user=request.user)
-        quiz = None
         correct_answer_count = 0
         for x, y in data.items():
             if x == "csrfmiddlewaretoken":
@@ -36,10 +49,6 @@ def takeTest(request, subject_name):
             score=correct_answer_count, subject=quiz.subject, student=student)
         test_result.save()
         return redirect(reverse("student:dashboard"))
-    subject = Subject.objects.get(title=subject_name)
-    student = Student.objects.get(user=request.user)
-    quiz = Quiz.objects.get(subject=subject)
-    questions = quiz.question_set.all()
 
     """ subject = subject_name
     try:
@@ -51,7 +60,6 @@ def takeTest(request, subject_name):
     questions = Question.objects.filter(subject__title = subject_name).order_by('id')
     questions_count = questions.count()
     return render(request, 'cbt/test.html',context = {'questions': questions, 'subject' : subject, 'questions_count': questions_count}) """
-    return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
 
 
 @login_required
