@@ -47,7 +47,7 @@ input{
     width: 300px;
     border: 0;
     background-color: transparent;
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid black;
     outline: none;
     color:#000;
 }
@@ -55,6 +55,14 @@ input{
 input::placeholder{
     font-size: .8rem;
     font-weight: bold;
+}
+
+input:invalid{
+    border-bottom-color: red;
+}
+
+input:valid{
+    border-bottom-color:green;
 }
 
 .submit-btns{

@@ -41,5 +41,17 @@
         </div>
       </form>
     </div>
+
+    <script>
+      const alertMessage = document.querySelector(".alert")
+      const inputBoxes = document.querySelector('input')
+      inputBoxes.forEach((item)={
+        item.addEventListener('focus',removeAlertMessage)
+      })
+
+      function removeAlertMessage(e){
+        alertMessage.styles.display ="none"
+      }
+    </script>
   </body>
 </html>
