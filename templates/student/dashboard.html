@@ -6,8 +6,7 @@
     <table class="table">
       <thead>
         <th>Subject</th>
-        <th>Take Test</th>
-        <th>View Test Results</th>
+        <th>Test Taken</th>
       </thead>
       {% for subject in student.subjects.all %}
       <tr>
@@ -23,17 +22,6 @@
             <a class="btn btn-success" href="{% url 'cbt:take_test' subject %}">
                 Take Test
             </a>
-          {% endif %}
-        </td>
-        <td>
-          {% if student.quiz_results.all %} 
-            {% for quiz_result in student.quiz_results.all %} 
-                {% if quiz_result.subject == subject %}
-                <a class="btn btn-warning" href="#">View Test Result</a>
-                {% endif %} 
-            {% endfor %} 
-          {% else %} 
-            Not Available 
           {% endif %}
         </td>
       </tr>

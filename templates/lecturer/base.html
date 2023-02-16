@@ -18,11 +18,16 @@
 
   <body>
     <div class="row">
+        {% if request.user.lecturer.subject.quiz != None %}
+        <script>
+            let quiz_exist = true
+        </script>
+        {% endif %}
       <aside class="col-md-2 position-fixed aside">
         <ul class="side-nav__nav">
           <li>
-            <a class="side-nav__link" href="{% url 'lecturer:create_quiz' %}"
-              >Create Quz</a
+            <a class="side-nav__link" href="{% url 'lecturer:create_quiz' %}" id="create_quiz-btn"
+              >Create Quiz</a
             >
           </li>
           <li>
@@ -51,5 +56,13 @@
       </main>
     </div>
     <script src="{% static 'js/set_questions.js' %}"></script>
+    <script>
+        const btn = document.querySelector("#create_quiz-btn")
+        btn.addEventListener("click",function(e){
+            if(quiz_exist){
+                alert("Quiz Exist")
+            }
+        })
+    </script>
   </body>
 </html>

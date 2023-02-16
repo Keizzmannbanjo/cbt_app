@@ -1,9 +1,0 @@
-TODO:
-* Add navigation bar to lead to pages
-* Add feature to allow users to view their grades from exams via mail
-* Add courses for exams as sidebar in student view
-* Restructure app to only handle cbt exams
-* Allow lecturers to create cbt exam questions
-* Allow lecturer to assign students to cbt exams
-* Allow lecturer to retrieve cbt exam scores
-* Refine registrar student registration to allow them to register students and lecturers with profile pictures

@@ -4,12 +4,11 @@
   {% csrf_token %}
   <div class="form-group">
     <label for="question_text">Enter Question</label>
-    <input
-      type="text"
+    <textarea
       id="question_text"
       name="question_text"
       class="form-control"
-    />
+    ></textarea>
   </div>
   <label for="correct_option_no">Enter Correct option No:</label>
   <input

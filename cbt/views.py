@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 import logging
 
 
-# logger = logging.getLogger('django')
+logger = logging.getLogger('django')
 
 
 @login_required
@@ -14,20 +14,21 @@ def takeTest(request, subject_name):
     student = Student.objects.get(user=request.user)
     subject = Subject.objects.get(title=subject_name)
     quiz = None
-    if student.quiz_results.all().count() > 0:
-        for quiz_result in student.quiz_results.all():
-            if quiz_result.subject == subject:
-                return redirect(reverse("student:dashboard"))
-            else:
-                quiz = Quiz.objects.get(subject=subject)
-                questions = quiz.question_set.all()
-                return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
-    else:
-        quiz = Quiz.objects.get(subject=subject)
-        questions = quiz.question_set.all()
-        return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
+    if request.method=="GET":
+        if student.quiz_results.all().count() > 0:
+            for quiz_result in student.quiz_results.all():
+                if quiz_result.subject == subject:
+                    return redirect(reverse("student:dashboard"))
+                else:
+                    quiz = Quiz.objects.get(subject=subject)
+                    questions = quiz.question_set.all()
+                    return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
+        else:
+            quiz = Quiz.objects.get(subject=subject)
+            questions = quiz.question_set.all()
+            return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
         data = request.POST
         correct_answer_count = 0
         for x, y in data.items():
@@ -49,6 +50,7 @@ def takeTest(request, subject_name):
             score=correct_answer_count, subject=quiz.subject, student=student)
         test_result.save()
         return redirect(reverse("student:dashboard"))
+
 
     """ subject = subject_name
     try:
