@@ -3,12 +3,17 @@ from lecturer.models import Subject
 from student.models import Student
 
 
-
 class Quiz(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     subject = models.OneToOneField(
         Subject, on_delete=models.CASCADE, related_name="quizz", null=False)
+
+
+class QuizList(models.Model):
+    quiz = models.ForeignKey(
+        Quiz, on_delete=models.CASCADE, related_name="quiz_canditates", null=False)
+    candidates = models.ManyToManyField(Student)
 
 
 class Question(models.Model):
@@ -21,6 +26,7 @@ class Option(models.Model):
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

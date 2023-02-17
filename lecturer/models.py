@@ -18,7 +18,7 @@ class Lecturer(models.Model):
     email = models.EmailField()
     first_name = models.CharField(max_length=25)
     other_name = models.CharField(max_length=25)
-    subject = models.OneToOneField(Subject, related_name='lecturer', null=True, on_delete=models.SET_NULL) # ? related name to access lecturer from subject object
+    subject = models.OneToOneField(Subject, related_name='lecturer', null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"{self.surname} {self.first_name}"
