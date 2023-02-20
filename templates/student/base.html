@@ -13,6 +13,11 @@
       type="text/css"
       href="{% static '/css/base.css' %}"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/css/layouts.css' %}"
+    />
     <link rel="icon" href="{% static '/images/logo.png' %}" />
   </head>
 
@@ -23,11 +28,6 @@
           <li>
             <a class="side-nav__link" href="{% url 'student:dashboard' %}"
               >Your Dashboard</a
-            >
-          </li>
-          <li>
-            <a class="side-nav__link" href="{% url 'student:view_subjects' %}"
-              >Your Subjects</a
             >
           </li>
         </ul>

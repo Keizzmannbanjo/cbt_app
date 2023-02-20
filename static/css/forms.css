@@ -1,0 +1,14 @@
+/* ? CREATE QUIZ FORM STYLES STARTS HERE */
+
+.create_quiz_form{
+    display:block;
+    width:60%;
+    margin: 1rem 2rem;
+}
+
+input,textarea{
+    margin-bottom: 2rem;
+}
+
+
+/* ? CREATE QUIZ FORM STYLES ENDS HERE */

@@ -10,21 +10,18 @@ logger = logging.getLogger('django')
 
 
 @login_required
-def takeTest(request, subject_name):
+def take_quiz(request, pk):
     student = Student.objects.get(user=request.user)
-    subject = Subject.objects.get(title=subject_name)
-    quiz = None
-    if request.method=="GET":
+    quiz = Quiz.objects.get(pk=pk)
+    if request.method == "GET":
         if student.quiz_results.all().count() > 0:
             for quiz_result in student.quiz_results.all():
-                if quiz_result.subject == subject:
+                if quiz_result.quiz == quiz:
                     return redirect(reverse("student:dashboard"))
                 else:
-                    quiz = Quiz.objects.get(subject=subject)
                     questions = quiz.question_set.all()
                     return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
         else:
-            quiz = Quiz.objects.get(subject=subject)
             questions = quiz.question_set.all()
             return render(request, 'cbt/take_test.html', {'quiz': quiz, 'questions': questions})
 
@@ -34,11 +31,9 @@ def takeTest(request, subject_name):
         for x, y in data.items():
             if x == "csrfmiddlewaretoken":
                 continue
-            elif x == "quiz_title":
+            elif x == "quiz_id":
                 quiz = Quiz.objects.get(id=int(y))
-                print("quiz exist")
             else:
-                print(int(y))
                 option = Option.objects.get(id=int(y))
                 question = Question.objects.get(id=int(x))
                 answer = Answer(question=question,
@@ -46,22 +41,10 @@ def takeTest(request, subject_name):
                 answer.save()
                 if answer.option.is_correct == True:
                     correct_answer_count += 1
-        test_result = TestResult(
-            score=correct_answer_count, subject=quiz.subject, student=student)
+        test_result = TestResult(quiz=quiz,
+                                 score=correct_answer_count,  student=student)
         test_result.save()
         return redirect(reverse("student:dashboard"))
-
-
-    """ subject = subject_name
-    try:
-        test_result = Subject.objects.get(title = subject_name).test_results.get(student__user = request.user)
-        if test_result:
-            return redirect('student:dashboard')
-    except:
-        pass
-    questions = Question.objects.filter(subject__title = subject_name).order_by('id')
-    questions_count = questions.count()
-    return render(request, 'cbt/test.html',context = {'questions': questions, 'subject' : subject, 'questions_count': questions_count}) """
 
 
 @login_required

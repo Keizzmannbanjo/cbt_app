@@ -12,27 +12,37 @@
       type="text/css"
       href="{% static '/css/base.css' %}"
     />
-    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static '/css/forms.css' %}"
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static '/css/layouts.css' %}"
+  />
     <link rel="icon" href="{% static '/images/logo.png' %}" />
   </head>
 
   <body>
-    <div class="row">
-        {% if request.user.lecturer.subject.quiz != None %}
-        <script>
-            let quiz_exist = true
-        </script>
-        {% endif %}
+    <section class="row">
+     
       <aside class="col-md-2 position-fixed aside">
         <ul class="side-nav__nav">
+          <li>
+            <a class="side-nav__link" href="{% url 'lecturer:dashboard' %}"
+              >Dashboard</a
+            >
+          </li>
           <li>
             <a class="side-nav__link" href="{% url 'lecturer:create_quiz' %}" id="create_quiz-btn"
               >Create Quiz</a
             >
           </li>
           <li>
-            <a class="side-nav__link" href="{% url 'lecturer:view_exam' %}"
-              >View Exam</a
+            <a class="side-nav__link" href="{% url 'lecturer:view_quizzes' request.user.lecturer.subject.title %}"
+              >View Quizzes</a
             >
           </li>
           <li>
@@ -48,14 +58,18 @@
           <div>
             {% if lecturer.user.is_authenticated %}
             <h2>Welcome {{ lecturer.user.username }}</h2>
-
             {% endif %}
           </div>
         </nav>
         <div class="content">{% block content %} {% endblock content %}</div>
       </main>
-    </div>
+    </section>
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js'%}"></script>
+    <script src="{% static 'js/popper.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/set_questions.js' %}"></script>
+    <script src="{% static 'js/view_exam.js' %}"></script>
+
     <script>
         const btn = document.querySelector("#create_quiz-btn")
         btn.addEventListener("click",function(e){

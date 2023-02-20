@@ -1,0 +1,18 @@
+{% extends 'lecturer/base.html' %}
+
+{% block content %}
+    <h3>Your Quizzes</h3>
+    {% if quizzes %}
+    <div class="quizzes_container">
+        {% for quiz in quizzes %}
+        <div class="card p-5">
+            <h4>{{quiz.title}}</h4>
+            <p>{{quiz.description}}</p>
+            <a href="{% url 'lecturer:view_exam' quiz.pk %}" class="btn btn-success view_quiz_btn">View Quiz</a>
+        </div>
+    
+        {% endfor %}
+    </div>
+      
+    {% endif %}
+{% endblock content %}

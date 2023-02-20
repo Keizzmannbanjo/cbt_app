@@ -4,6 +4,5 @@ from .views import *
 app_name = 'cbt'
 
 urlpatterns = [ 
-    path('take_test/<str:subject_name>/', takeTest, name = 'take_test'),
-    path('submit_test/', handleTestSubmit, name ="submit_test"),
+    path('take_quiz/<int:pk>/', take_quiz, name = 'take_quiz'),
 ]

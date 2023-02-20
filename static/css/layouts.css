@@ -1,0 +1,88 @@
+/* ? QUIZZES LIST STYLES STARTS HERE */
+
+.quizzes_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2rem;
+}
+
+.quizzes_container .card {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.quizzes_container p {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.view_quiz_btn {
+  margin-top: 1rem;
+}
+
+/* ? QUIZZES LIST STYLES ENDS HERE */
+
+/* ? QUIZZES DETAILS STYLES START HERE */
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.tabs a {
+  text-align: center;
+  border-bottom: 1px solid rgb(126, 120, 120);
+  padding: 1rem 0;
+  color: rgb(109, 194, 137);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.tabs a:hover {
+  background-color: rgb(191, 234, 185);
+  color: white;
+}
+
+.tabs a:nth-child(1) {
+  border-right: 1px solid rgb(189, 183, 183);
+}
+
+.questions_container,
+.candidates_container {
+  display: none;
+  padding: 2rem;
+}
+
+.tab-btn.active {
+  background-color: rgb(109, 194, 137);
+  color: white;
+}
+
+.tab-container .shown{
+    display: block;
+}
+
+/* ? QUIZZES DETAILS STYLES ENDS HERE */
+
+
+/* ? STUDENT DASHBOARD STYLES STARTS HERE */
+
+.quiz_info_container{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:2rem;
+}
+
+.quiz_info_container .card, .card{
+  padding:2rem;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.quiz_info_container .card{
+  text-align: center;
+}
+/* ? STUDENT DASHBOARD STYLES STARTS HERE */

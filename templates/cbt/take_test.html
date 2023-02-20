@@ -4,7 +4,7 @@
 
 <form method="post">
   {% csrf_token %}
-  <input type="number" name="quiz_title"  value="{{quiz.id}}" hidden/>
+  <input type="number" name="quiz_id"  value="{{quiz.pk}}" hidden/>
   {% for question in questions %}
   <p>{{question.text}}</p>
   <div>

@@ -1,6 +1,6 @@
 {% extends 'lecturer/base.html' %} {% block content %}
 <h3>Enter Question</h3>
-<form method="post">
+<form method="post" action="{% url 'lecturer:add_question' quiz.pk %}">
   {% csrf_token %}
   <div class="form-group">
     <label for="question_text">Enter Question</label>

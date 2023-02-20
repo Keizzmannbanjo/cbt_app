@@ -7,13 +7,13 @@
         <th>Name</th>
         <th>Matric No</th>
         <th>Test Taken</th>
-        <th>View Result</th>
+        {% comment %} <th>View Result</th> {% endcomment %}
     </tr>
     {% for student in students %} 
     <tr>
         <td>{{student}}</td>
         <td>{{student.matric_no}}</td>
-        <td>
+        {% comment %} <td>
             {% if test_results %}
             {% for test_result in test_results %} 
                 {% if test_result.student == student %}
@@ -26,7 +26,7 @@
             No Test Score
             {% endif %}
 
-        </td>
+        </td> {% endcomment %}
         <td>
             <button class="btn btn-info">View Result</button>
         </td>

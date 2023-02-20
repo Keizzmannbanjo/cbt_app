@@ -1,25 +1,97 @@
 {% extends 'lecturer/base.html' %} {% block content %}
-<h3>Exam Details</h3>
-<a href="{% url 'lecturer:add_question'%}" class="btn btn-success">
-  Add Question</a
->
+
 <div>
-  {% if quiz != None %}
   <h3>{{quiz.title}}</h3>
   <p>{{quiz.description}}</p>
-
-  <div>
-    {% if questions != None %} 
-    {% for question in questions %}
-    <p>{{ question.text}}</p>
-    <a href="#" class="btn btn-success">Edit Question</a>
-    {% endfor %} {% endif %}
-  </div>
-  {% else%}
-  <p>Sorry, no quiz available</p>
-  <a href="{% url 'lecturer:create_quiz' %}" class="btn btn-success"
-    >Create Quiz</a
+  {% comment %} <a href="{% url 'lecturer:add_question' quiz.pk %}" class="btn btn-success">
+    Add Question</a
   >
-  {% endif %}
+  <div>
+    
+  </div> {% endcomment %}
+
+  <div class="tabs">
+    <a href="#" class="tab-btn question-btn  active">Questions</a>
+    <a href="#" class="tab-btn candidate-btn">Quiz Candidates</a>
+  </div>
+  <div class="tab-container">
+      
+      <div class="questions_container shown">
+        <div>
+          <a href="{% url 'lecturer:add_question' quiz.pk%}" class="btn btn-success">Add Questions</a>
+        </div>
+        {% if questions %}
+          {% for question in questions %}
+            <p>{{ question.text}}</p>
+            <a href="#" class="btn btn-success">Edit Question</a>
+          {% endfor %} 
+        {% else %}
+          <p>No questions available</p>
+        {% endif %}
+      </div>
+  
+      <div class="candidates_container">
+        <button type="button" data-toggle="modal" data-target="#addStudentsModal" class="btn btn-warning">Add Students to quiz</button>
+        {% if quiz_list.candidates.all %}
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Student's Names</th>
+              <th></th>
+            </tr>
+          </thead>
+          {% for student in quiz_list.candidates.all %}
+            <tr>
+              <td>{{student.surname}} {{student.first_name}} {{student.other_name}}
+              </td>
+              <td>
+                <a href="#" class="btn btn-secondary">Remove From Quiz</a>
+              </td>
+            </tr>
+          
+          {% endfor %}
+        </table> 
+        {% else %}  
+          <p>No Candidates available<p>
+        {% endif %}
+      </div>
+      
+  </div>
+
+  
 </div>
+
+
+<div class="modal fade" id="addStudentsModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addStudentModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'lecturer:add_students_to_quiz' quiz.pk %}">
+           {% csrf_token %}
+          {% for student in non_candidates %}
+          <div>
+            <h5>{{student.surname}} {{student.first_name}} {{student.other_name}}</h5>
+            <input type="checkbox" name="studentsid" value="{{student.pk}}" >
+          </div>
+          
+        {% endfor %}
+        <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {% endblock content %}

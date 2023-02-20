@@ -1,35 +1,44 @@
 {% extends 'student/base.html' %} {% block content %}
 <section>
-  <div class="text-center">
-    <h3>Your Subjects</h3>
-    {% if student.subjects.all %}
-    <table class="table">
-      <thead>
-        <th>Subject</th>
-        <th>Test Taken</th>
-      </thead>
-      {% for subject in student.subjects.all %}
-      <tr>
-        <td>{{subject}}</td>
-        <td>
-          {% if student.quiz_results.all %} 
-            {% for quiz_result in student.quiz_results.all %} 
-                    {% if quiz_result.subject == subject %}
-                    <i class="far fa-check-circle"></i>
-                    {% endif %}
-                {% endfor %} 
-          {% else %}
-            <a class="btn btn-success" href="{% url 'cbt:take_test' subject %}">
-                Take Test
-            </a>
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
-    {% else %}
-    <p>Sorry, you do not have registered courses</p>
-    {% endif %}
+  <h3>Quiz Information</h3>
+  <div class="quiz_info_container">
+    <div class="card">
+      <h4>All Quizzes</h4>
+      <h5>{{all_quizzes_count}}
+    </div>
+    <div class="card">
+      <h4>Completed Quizzes</h4>
+      <h5>{{completed_quizzes_count}}
+    </div>
+    <div class="card">
+      <h4>Remaining Quizzes</h4>
+      <h5>{{uncompleted_quizzes_count}}</h5>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Completed quizzes</h3>
+  <div class="quiz_info_container">
+    {% for quiz in completed_quizzes %}
+      <div class="card">
+        <h4>{{quiz.title}}</h4>
+        <p>{{quiz.description}}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section>
+  <h3>Remaining quizzes</h3>
+  <div class="quiz_info_container">
+    {% for quiz in uncompleted_quizzes %}
+      <div class="card">
+        <h4>{{quiz.title}}</h4>
+        <p>{{quiz.description}}</p>
+        <a href="{% url 'cbt:take_quiz' quiz.pk %}" class="btn btn-success">Take Quiz</a>
+      </div>
+    {% endfor %}
   </div>
 </section>
 

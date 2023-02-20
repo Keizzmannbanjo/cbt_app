@@ -4,10 +4,10 @@ from student.models import Student
 
 
 class Quiz(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    subject = models.OneToOneField(
-        Subject, on_delete=models.CASCADE, related_name="quizz", null=False)
+    title = models.CharField(max_length=255, null=False, blank=False)
+    description = models.TextField(null=False, blank=False)
+    subject = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name="quizzes", null=False)
 
 
 class QuizList(models.Model):
@@ -35,10 +35,8 @@ class Answer(models.Model):
 
 
 class TestResult(models.Model):
-    # ? related name to access all test results from subject object
-    subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE, related_name='quiz_results')
+    quiz = models.ForeignKey(
+        Quiz, on_delete=models.CASCADE, related_name='quiz_results')
     score = models.IntegerField(default=0)
-    # ? related name to access all test results from student object
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE, related_name='quiz_results')
