@@ -38,7 +38,8 @@
           <thead>
             <tr>
               <th>Student's Names</th>
-              <th></th>
+              <th>Quiz Score</th>
+              <th>Remove From Quiz</th>
             </tr>
           </thead>
           {% for student in quiz_list.candidates.all %}
@@ -46,8 +47,27 @@
               <td>{{student.surname}} {{student.first_name}} {{student.other_name}}
               </td>
               <td>
-                <a href="#" class="btn btn-secondary">Remove From Quiz</a>
-              </td>
+                {% if student.quiz_results.all.count > 0 %}
+                  {% for quiz_result in student.quiz_results.all %}
+                    {% if quiz_result.quiz == quiz %}
+                      {{quiz_result.score}}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+               </td>
+               <td>
+                {% if student.quiz_results.all.count > 0 %}
+                  {% for quiz_result in student.quiz_results.all %}
+                    {% if quiz_result.quiz == quiz %}
+                      Not Allowed
+                    
+                    {% endif %}
+                  {% endfor %}
+                  {% else %}
+                    <a href="{% url 'lecturer:remove_from_quiz' quizlist_id=quiz_list.pk student_id=student.pk %}" class="btn btn-secondary"> Remove From Quiz</a>
+                {% endif %}
+               </td>
+                
             </tr>
           
           {% endfor %}

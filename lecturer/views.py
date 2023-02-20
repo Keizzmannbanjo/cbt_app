@@ -116,4 +116,11 @@ def add_students_to_quiz(request, pk):
                 student = Student.objects.get(pk=int(y))
                 quiz_list.candidates.add(student)
         return redirect(reverse("lecturer:view_exam", args=[pk]))
-        return HttpResponse("Students added")
+
+
+@login_required
+def remove_from_quiz(request, quizlist_id, student_id):
+    student = Student.objects.get(pk=student_id)
+    quizlist = QuizList.objects.get(pk=quizlist_id)
+    quizlist.candidates.remove(student)
+    return redirect(reverse('lecturer:view_exam', args=[quizlist.quiz.pk]))

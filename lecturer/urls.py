@@ -12,4 +12,5 @@ urlpatterns = [
     path('view_quizzes/<str:subject_name>/', view_quzzes, name="view_quizzes"),
     path('add_students_to_quiz/<int:pk>/', add_students_to_quiz,
          name="add_students_to_quiz"),
+         path('remove_student_from_quiz/<int:quizlist_id>/<int:student_id>/',remove_from_quiz, name="remove_from_quiz"),
 ]
